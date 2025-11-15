@@ -1,0 +1,32 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+section {
+  margin-bottom: 25px;
+}
+
+#controls button {
+  margin-right: 10px;
+  padding: 8px 14px;
+}
+
+#logOutput,
+#resultList {
+  height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 8px;
+  background: #fafafa;
+}
+
+#statusMsg {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background: #eee;
+}

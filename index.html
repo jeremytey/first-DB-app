@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your First DB App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main>
+    <h1>Your First DB App</h1>
+
+    <!-- Control Panel -->
+    <section id="controls">
+      <button id="loadBtn">Load DB</button>
+      <button id="queryBtn">Query DB</button>
+      <button id="clearBtn" disabled>Clear DB</button>
+    </section>
+
+    <!-- Notification Panel -->
+    <section id="notification">
+      <h2>Status</h2>
+      <div id="statusMsg">No operations yet.</div>
+    </section>
+
+    <!-- Log Panel -->
+    <section id="logPanel">
+      <h2>Execution Log</h2>
+      <div id="logOutput"></div>
+    </section>
+
+    <!-- Query Results -->
+    <section id="results">
+      <h2>Query Results</h2>
+      <div id="resultList"></div>
+    </section>
+  </main>
+
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>
