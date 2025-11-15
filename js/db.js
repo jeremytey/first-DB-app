@@ -76,21 +76,35 @@ export class Customer {
   }
 }
 
+// opens database, read all rows from "customers" table and returns 
+// every row as array of objects
+async function queryAllRows() {
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.open(this.dbName, 1); // opens DB
 
-  async queryAllRows() {
-    // pseudocode:
+    request.onerror = (event) => {
+      console.log("queryAllRows - Database error:", event.target.error);
+      reject(event.target.error);
+    };
 
-    // open db connection (indexedDB.open)
-    // wait for onsuccess
-    // create readonly transaction
-    // get objectStore("customers")
-    // call getAll()
-    // wait for result
-    // return array of customers (or empty array)
+    // wait for successful open
+    request.onsuccess = (event) => {
+      const db = event.target.result; //database object
 
-    // NOTE: do not implement the real IndexedDB logic here yet
-  }
+      const txn = db.transaction("customers", "readonly");
+      const store = txn.objectStore("customers");
 
-  async function queryAllRows() {
-    
+      const getAllRequest = store.getAll();
+
+      getAllRequest.onerror = (event) => {
+        console.log("queryAllRows - getAll error:", event.target.error);
+        reject(event.target.error);
+      };
+
+      getAllRequest.onsuccess = (event) => {
+        resolve(getAllRequest.result || []);
+      };
+    };
+  });
+}
 
