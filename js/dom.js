@@ -2,9 +2,9 @@
 
 // update small status panel
 export function updateStatus(message) {
-  // pseudocode:
-  // select status element
-  // replace text content with message
+  const statusElement = document.getElementById("statusMsg");
+  statusElement.innerHTML= '';
+  statusElement.textContent = message;
 }
 
 // add entries to the log panel
