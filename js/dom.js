@@ -9,15 +9,28 @@ export function updateStatus(message) {
 
 // add entries to the log panel
 export function addLog(message) {
-  // pseudocode:
-  // append a new <div> with timestamp + message
-  // maintain scroll-to-bottom behavior
+  const logOutput = document.getElementById("logOutput");
+  const logEntry = document.createElement("div");
+  const timestamp = new Date().toLocaleTimeString();
+  logEntry.textContent = `[${timestamp}] ${message}`;
+  logOutput.appendChild(logEntry);
+  logOutput.scrollTop = logOutput.scrollHeight;
 }
 
 // show query results
 export function renderResults(customers) {
-  // pseudocode:
-  // if array empty → show "No results"
-  // else iterate and build divs for each customer
-  // format: userid, name, email, last order date, sales total
+  const resultList = document.getElementById("resultList");
+  resultList.innerHTML = ''; // clear previous results
+
+  if (customers.length === 0) {
+    resultList.textContent = "No results";
+    return;
+  } else {
+    customers.forEach(customer => {
+      const customerDiv = document.createElement("div");
+      customerDiv.classList.add("customer-entry");
+      customerDiv.textContent = `UserID: ${customer.userid}, Name: ${customer.name}, Email: ${customer.email}, Last Order Date: ${customer.lastOrderDate}, Sales Total: $${customer.salesTotal.toFixed(2)}`;
+      resultList.appendChild(customerDiv);
+    });
+  }
 }
