@@ -78,9 +78,9 @@ export class Customer {
 
 // opens database, read all rows from "customers" table and returns 
 // every row as array of objects
-async function queryAllRows() {
+export async function queryAllRows() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(this.dbName, 1); // opens DB
+    const request = indexedDB.open("customersDB", 1); // opens DB
 
     request.onerror = (event) => {
       console.log("queryAllRows - Database error:", event.target.error);
