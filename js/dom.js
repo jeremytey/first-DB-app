@@ -3,7 +3,6 @@
 // update small status panel
 export function updateStatus(message) {
   const statusElement = document.getElementById("statusMsg");
-  statusElement.innerHTML= '';
   statusElement.textContent = message;
 }
 
@@ -29,7 +28,7 @@ export function renderResults(customers) {
     customers.forEach(customer => {
       const customerDiv = document.createElement("div");
       customerDiv.classList.add("customer-entry");
-      customerDiv.textContent = `UserID: ${customer.userid}, Name: ${customer.name}, Email: ${customer.email}, Last Order Date: ${customer.lastOrderDate}, Sales Total: $${customer.salesTotal.toFixed(2)}`;
+      customerDiv.textContent = `UserID: ${customer.userid}, Name: ${customer.name}, Email: ${customer.email}, Last Order Date: ${customer.lastOrderDate}, Sales Total: $${customer.salesTotal}`;
       resultList.appendChild(customerDiv);
     });
   }

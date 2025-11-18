@@ -1,47 +1,56 @@
 // ===== app.js =====
-// event listeners and orchestration
-import { Customer } from "./db.js";
+import { loadDB, clearDB, queryAllRows } from "./db.js";
 import { updateStatus, addLog, renderResults } from "./dom.js";
 
-const DBNAME = "customer_db";
-
-// Query button handler (you must fill in the actual logic in db.js)
-const queryDB = async () => {
-  // pseudocode:
-  // update status "query started"
-  // call customer.queryAllRows()
-  // if no rows → render "no results"
-  // else render rows
-  // update status "query finished"
-  // add log entries in between
-};
-
 document.addEventListener("DOMContentLoaded", () => {
-  // get elements
   const loadBtn = document.getElementById("loadBtn");
   const queryBtn = document.getElementById("queryBtn");
   const clearBtn = document.getElementById("clearBtn");
 
-  // on Load DB
-  loadBtn.addEventListener("click", () => {
-    // pseudocode:
-    // update status "loading db..."
-    // addLog("start load")
-    // call loadDB()
-    // update status "load complete"
-    // update button states
+  // intial buttons disabled 
+  queryBtn.disabled = true;
+  clearBtn.disabled = true;
+
+  // Load DB, populate with initial data
+  loadBtn.addEventListener("click", async () => {
+    updateStatus("Loading database...");
+    addLog("Starting DB load...");
+
+    await loadDB();
+
+    updateStatus("Database loaded.");
+    addLog("DB load finished.");
+
+    loadBtn.disabled = true;
+    queryBtn.disabled = false;
+    clearBtn.disabled = false;
   });
 
-  // on Query DB
-  queryBtn.addEventListener("click", queryDB);
+  // Query DB and render results
+  queryBtn.addEventListener("click", async () => {
+    updateStatus("Querying database...");
+    addLog("Query started...");
 
-  // on Clear DB
-  clearBtn.addEventListener("click", () => {
-    // pseudocode:
-    // update status "clearing db..."
-    // call clearDB()
-    // update status "db cleared"
-    // update button states
-    // clear results panel
+    const rows = await queryAllRows();
+    renderResults(rows);
+
+    updateStatus("Query complete.");
+    addLog(`Returned ${rows.length} rows.`);
+  });
+
+  // Clear DB
+  clearBtn.addEventListener("click", async () => {
+    updateStatus("Clearing database...");
+    addLog("Clear started...");
+
+    await clearDB();
+
+    updateStatus("Database cleared.");
+    addLog("Clear finished.");
+
+    document.getElementById("resultList").innerHTML = "";
+    queryBtn.disabled = true;
+    clearBtn.disabled = true;
+    loadBtn.disabled = false;
   });
 });
